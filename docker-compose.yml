@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+    ports:
+      - "3001:3000" # Puerto para el gateway
+    networks:
+      - infra
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  servicio-whatsapp:
+    build: ./servicio-whatsapp
+    container_name: servicio-whatsapp
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+    networks:
+      - infra
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  servicio-telegram:
+    build: ./servicio-telegram
+    container_name: servicio-telegram
+    environment:
+      - RABBITMQ_URL=amqp://rabbitmq
+    networks:
+      - infra
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  infra:
+    # external: true
