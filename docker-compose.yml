@@ -21,7 +21,7 @@ services:
     build: ./servicio-whatsapp
     container_name: servicio-whatsapp
     environment:
-      - RABBITMQ_URL=amqp://rabbitmq
+      - RABBITMQ_URL=amqp://admin:admin@rabbitmq
     networks:
       - mensajeria-infraestructura_infra
     healthcheck:
@@ -35,7 +35,7 @@ services:
     build: ./servicio-telegram
     container_name: servicio-telegram
     environment:
-      - RABBITMQ_URL=amqp://rabbitmq
+      - RABBITMQ_URL=amqp://admin:admin@rabbitmq
     networks:
       - mensajeria-infraestructura_infra
     healthcheck:
