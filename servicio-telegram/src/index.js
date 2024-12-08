@@ -2,7 +2,7 @@ const amqp = require('amqplib');
 const express = require('express');
 
 async function consumeMessages(queue, processMessage) {
-  const connection = await amqp.connect('amqp://rabbitmq');
+  const connection = await amqp.connect('amqp://admin:admin@localhost');
   const channel = await connection.createChannel();
   await channel.assertQueue(queue, { durable: true });
 
@@ -22,7 +22,7 @@ async function consumeMessages(queue, processMessage) {
 }
 
 async function sendToTelegram(message) {
-  console.log(`Enviando mensaje a Telegram: ${JSON.stringify(message)}`);
+  console.log(`Mensaje recibido de mqtt ${JSON.stringify(message)}`);
   // Aquí iría la integración con la API de Telegram
 }
 
