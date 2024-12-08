@@ -7,6 +7,5 @@
   },
   "dependencies": {
     "express": "^4.21.1",
-    "amqplib": "^0.10.5"
-  }
+    "amqplib": "^0.10.5"  }
 }

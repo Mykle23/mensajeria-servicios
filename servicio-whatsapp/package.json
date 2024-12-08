@@ -1,13 +1,12 @@
 {
-    "name": "servicio-telegram",
-    "version": "1.0.0",
-    "main": "src/index.js",
-    "scripts": {
-      "start": "node src/index.js"
-    },
-    "dependencies": {
-      "express": "^4.21.1",
-      "amqplib": "^0.10.5"
-    }
+  "name": "servicio-telegram",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "amqplib": "^0.10.5"
   }
-  
+}
