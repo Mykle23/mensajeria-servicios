@@ -7,17 +7,8 @@ async function consumeMessages(queue, processMessage) {
   await channel.assertQueue(queue, { durable: true });
 
   console.log(`Esperando mensajes en la cola ${queue}`);
-
-  let isProcessing = false;
-
-  const processNextMessage = async () => {
-    if (isProcessing) return;
-
-    isProcessing = true;
-
-    const msg = await channel.get(queue, { noAck: false });
-
-    if (msg) {
+  channel.consume(queue, async (msg) => {
+    if (msg !== null) {
       const message = JSON.parse(msg.content.toString());
       try {
         await processMessage(message);
@@ -27,14 +18,7 @@ async function consumeMessages(queue, processMessage) {
         channel.nack(msg);
       }
     }
-
-    isProcessing = false;
-
-    // Esperar 1 segundo antes de procesar el siguiente mensaje
-    setTimeout(processNextMessage, 100);
-  };
-
-  processNextMessage();
+  });
 }
 
 async function sendToTelegram(message) {
